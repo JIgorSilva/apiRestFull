@@ -32,6 +32,10 @@ public class UserController {
         return ResponseEntity.ok(usuarioSalvo);
     }
 
-   
+    @GetMapping("/{id}")
+    public ResponseEntity<UserApi> buscarUsuarioId(@PathVariable Integer id) {
+        Optional<UserApi> user = repositoryUser.findById(id);
+        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
     
 }
