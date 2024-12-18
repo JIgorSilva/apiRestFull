@@ -14,10 +14,7 @@ public class UserApi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer UserId;
-    
-    @Column(name = "idd", insertable = false, updatable = false)
-    private int id;
+    private Integer userId;
 
     @Column(name = "title")
     private String title;
@@ -25,19 +22,11 @@ public class UserApi {
     private boolean completed;
 
     public Integer getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(Integer userId) {
-        UserId = userId;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.userId = userId;
     }
 
     public String getTitle() {
@@ -59,11 +48,15 @@ public class UserApi {
     public UserApi() {
     }
 
-    public UserApi(Integer userId, int id, String title, boolean completed) {
-        UserId = userId;
-        this.id = id;
+    public UserApi(Integer userId,  String title, boolean completed) {
+        this.userId = userId;
         this.title = title;
         this.completed = completed;
     }
 
+    @Override
+    public String toString() {
+        return "UserApi [userId=" + userId + "]";
+    }
+    
 }
