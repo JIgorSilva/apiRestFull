@@ -16,7 +16,7 @@
     <description>created apirest</description>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>23</java.version>
     </properties>
 
     <dependencies>
@@ -32,7 +32,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
-            <optional>true</optional>
+
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -54,6 +54,11 @@
             <artifactId>flyway-core</artifactId>
             <version>9.16.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.2.0</version> <!-- Verifique a última versão disponível -->
+        </dependency>    
     </dependencies>
 
     <build>
