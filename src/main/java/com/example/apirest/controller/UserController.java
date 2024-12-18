@@ -37,5 +37,9 @@ public class UserController {
         Optional<UserApi> user = repositoryUser.findById(id);
         return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-    
+    @GetMapping("/")
+    public ResponseEntity<List<UserApi>> buscarTodos() {
+        List<UserApi> iduser = repositoryUser.findAll();
+        return ResponseEntity.ok(iduser); 
+    }
 }
