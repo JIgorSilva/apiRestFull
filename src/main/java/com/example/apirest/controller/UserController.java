@@ -1,8 +1,11 @@
 package com.example.apirest.controller;
 
+import static org.mockito.ArgumentMatchers.notNull;
+
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +22,7 @@ import com.example.apirest.repository.UserRepository;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @Controller
@@ -64,6 +68,33 @@ public class UserController {
         }
     }
 
-    
+    @PutMapping("editar/{id}")
+    @Operation(summary = "Editar usuario por id.", description = "Retorna 200 quando os campos usuario são alterados com sucesso")
+    public ResponseEntity<UserApi> editarUsuarioPorId(@PathVariable Integer id, @RequestBody UserApi userRequest) {
+        Optional<UserApi> user = repositoryUser.findById(id);
+
+        // Verificando se o usuário existe
+        if (!user.isPresent()) {
+            return ResponseEntity.notFound().build(); // Retorna 404 se não encontrar o usuário
+        }
+
+        // Atualizando o usuário
+        UserApi usuarioApi = user.get();
+
+        // Validando e atualizando os campos
+        if (userRequest.getTitle() != null && !userRequest.getTitle().trim().isEmpty()) {
+            usuarioApi.setTitle(userRequest.getTitle());
+        }
+        if (!userRequest.getCompleted()) {
+            usuarioApi.setCompleted(userRequest.getCompleted());
+        }
+
+        // Salvando o usuário atualizado
+        repositoryUser.save(usuarioApi);
+
+        // Retornando o usuário atualizado com status 200 OK
+        return ResponseEntity.ok(usuarioApi);
+
+    }
 
 }
